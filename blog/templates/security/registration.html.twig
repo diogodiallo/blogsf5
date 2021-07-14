@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center lead">Vous souhaiter vous inscrire ? </h1>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-4 col-md-offset-4 p-3 rounded bg-dark text-white">
+            {{form_start(form)}}
+            {{form_row(form.username, {'label':'Identifiant', 'attr': {'placeholder': 'ronflette'}})}}
+            {{form_row(form.email, {'label':'Adresse Email', 'attr': {'placeholder': 'ronflette@gmail.com'}})}}
+            {{form_row(form.password, {'label':'Mot de passe', 'attr': {'placeholder': '123456'}})}}
+            {{form_row(form.confirm_password, {'label':'Confirmation mot de passe', 
+                                                'attr': {'placeholder': '123456'}})}}
+            <button type="submit" class="btn btn-success">Inscription</button>
+            {{form_end(form)}}
+        </div>
+    </div>
+</div>
+{% endblock %}

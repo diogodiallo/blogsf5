@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center">Vous souhaiter nous contacter ? </h1>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-4 col-md-offset-4 p-3 rounded bg-dark text-white">
+            {{ form_start(contactForm) }}
+            {{ form_row(contactForm.lastname, {'attr': {'placeholder': 'Votre nom de famille'}}) }}
+            {{ form_row(contactForm.firstname, {'attr': {'placeholder': 'Votre prénom'}}) }}
+            {{ form_row(contactForm.email, {'attr': {'placeholder': 'safiabalde@gmail.com'}}) }}
+            {{ form_row(contactForm.object, {'attr': {'placeholder': 'Votre objet'}}) }}
+            {{ form_row(contactForm.content, {'attr': {'placeholder': 'Votre message'}}) }}
+            <button type="submit" class="btn btn-success btn-block">Envoyer</button>
+            {{ form_end(contactForm) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

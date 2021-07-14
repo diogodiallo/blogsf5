@@ -1,0 +1,5 @@
+{% if app.flashes('message') %}
+    {% for type, message in app.flashes %}
+        <div class="container bg bg-success text-light flash-{{type}}">{{ message }}</div>
+    {% endfor %}
+{% endif %}

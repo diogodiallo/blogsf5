@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{# {% form_theme postForm 'bootstrap_5_layout.html.twig' %} #}
+
+{% block title %}
+    Ajouter un article
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Ajouter un nouveau article</h1>
+    {{ form_start(postForm) }}
+    {{ form_row(postForm.title, {'attr': {'placeholder': "Titre de l'article"}}) }}
+    {{ form_row(postForm.category) }}
+    {{ form_row(postForm.content, {'attr': {'placeholder': "Contenu de l'article"}}) }}
+    {{ form_row(postForm.image, {'attr': {'placeholder': "URL de l'article"}}) }}
+    <button type="submit" class="btn btn-primary btn-lg">
+        {% if editMode %}
+            Modifier
+        {% else %}
+            Ajouter
+        {% endif %}
+    </button>
+    {{ form_end(postForm) }}
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+    {# Affichage du message flash #}
+    {% include "_flash.html.twig" %}
+    </div>
+    <div class="row">
+        <article class="card col-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <p>
+                        <img src="{{ post.image }}" class="card-img-top" 
+                            alt="{{ post.title }}">
+                    </p>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ post.title }}</h3>
+                        <p><small>Catégorie : {{ post.category.title }}</small></p>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            {{ post.content|raw }}
+                        </div>
+                        {% if app.user %}
+                        <p>
+                            <a href="{{ path('post.edit', {'id': post.id}) }}" 
+                            class="btn btn-primary">Modifier cet article</a>
+                            <a href="{{ path('post.delete', {'id': post.id}) }}" 
+                            class="btn btn-danger">Supprimer cet article</a>
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <p>&Eacute;crit le : {{ post.createdAt|date('d-m-Y à H:i:s') }}</p>
+            </div>
+        </article> 
+    </div>
+
+    {# Affichage de la liste des commentaires #}
+    {# =========================== #}
+    <section class="" id="comments">
+        <h3 class="my-4 text-center">Les commentaires ({{post.comments|length}})</h3>
+        {% if post.comments %} 
+            {% for comment in post.comments %}
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            {{comment.author}} a dit : 
+                            (le : <small>{{comment.createdAt|date('d-m-Y à H:i')}}</small>)
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">{{ comment.content }}</div>
+                    </div>
+                </div> 
+            {% endfor %}
+        {% else %}
+        <p>Cet article n'a pas encore été commenté.</p>
+        {% endif %}
+    </section>
+
+    {# Ajout de commentaire via formulaire #}
+    {# =================================== #}
+    {% if app.user %}
+        <section class="my-4" id="add-comment">
+            <h3 class="text-center">Ajouter un commentaire</h3>
+            <div class="row justify-content-md-center">
+                <section class="col-md-4 col-md-offset-4 col-12 bg-dark text-white p-3">
+                    {{form_start(commentForm)}}
+                    {{form_row(commentForm.author, {'attr': {'placeholder': 'Louis DUPONT'}},
+                                                    {'label': 'Auteur'}
+                                                )}}
+                    {{form_row(commentForm.content, {'attr': 
+                                    {'placeholder': 'Contenu commentaire'}},
+                                    {'label': 'Commentaire'}
+                                    )}}
+                    <button type="submit" class="btn btn-primary">Commenter</button>
+                    {{form_end(commentForm)}}
+                </section>
+            </div>
+        </section>
+    {% else %}
+        <p class="bg bg-info text-white text-center py-3">
+            Pour ajouter un commentaire vous devez vous <a href="{{ path('security.login') }}">connecter</a>
+        </p>
+    {% endif %}
+{% endblock %}

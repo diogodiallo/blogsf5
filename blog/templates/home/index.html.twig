@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <h1 class="text-center my-4">Nos images du jour</h1>
+    {# Affichage du message flash #}
+    {{ include("_flash.html.twig") }}
+
+    {# Affichages des images aleatoires de la page d'accueil #}
+    {% for i in 1..8 %}
+        <figure class="figure">
+            <img src="https://via.placeholder.com/250x250" class="figure-img img-fluid rounded" 
+            alt="image de placeholder">
+            <figcaption class="figure-caption">Description de l'image</figcaption>
+        </figure>
+    {% endfor %}
+</div>
+{% endblock %}
